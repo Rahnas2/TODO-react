@@ -22,16 +22,17 @@ function ToDo() {
 
     //adding new task
     const handleTask = () => {
-        if (!newTask) return
-        if (task.includes(newTask)) return alert('alrealy exist in your list')
-        addTask([...task, newTask])
+        if (!newTask.trim()) return
+        if (task.includes(newTask.toLowerCase())) return alert('alrealy exist in your list')
+        addTask([...task, newTask.toLowerCase()])
         setNewTask('')
         setIsComplete(false)
     }
 
     //delete task
     const handleDelete = (i) => {
-        alert('are you sure')
+        const confirmDelete = window.confirm('Are you sure you want to delete this task?')
+        if(!confirmDelete) return
         let afterRemovel = task.filter((_, index) => index !== i)
         addTask(afterRemovel)
     }
@@ -46,8 +47,8 @@ function ToDo() {
 
     //updadte the task
     const handleUpdate = () => {
-        if (!newTask) return
-        if (task.includes(newTask)) return alert('alrealy exist in your list')
+        if (!newTask.trim()) return
+        if (task.includes(newTask.toLowerCase())) return alert('alrealy exist in your list')
 
         let updatedTask = [...task]
 
@@ -56,14 +57,12 @@ function ToDo() {
         //     addTask(updatedTask)
         // }  
 
-        updatedTask[editTaskIndex] = newTask
+        updatedTask[editTaskIndex] = newTask.toLowerCase()
         addTask(updatedTask)
 
         setEditTask(false)
         setNewTask('')
-        editTaskIndex(null)
-
-
+        setEditTaskIndex(null)
     }
 
     //reverse the order 
